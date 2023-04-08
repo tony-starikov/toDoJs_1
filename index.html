@@ -9,7 +9,7 @@
   </head>
   <body>
 
-    <div class="container-fluid">
+    <div class="container-fluid tasks-form">
       <div class="row p-5">
         <div class="col-12 col-lg-6 mx-auto">
           <div class="card">
@@ -19,7 +19,7 @@
               </h1>
             </div>
             <div class="card-body">
-              <form>
+              <form name="addNewTask">
                 <div class="mb-3">
                   <!-- <label for="title" class="form-label">Task Title</label> -->
                   <input type="text" class="form-control" id="title" name="title" placeholder="Task title">
@@ -36,26 +36,9 @@
           </div>
         </div>
       </div>
-      <div class="row p-5 pt-0">
-        <div class="col-12 col-lg-6 mx-auto">
-          <div class="card">
-            <div class="card-header text-center">
-              <h2 class="h5 mb-0">
-                Task title
-              </h2>
-            </div>
-            <div class="card-body">
-              <p class="mb-0">
-                Task body
-              </p>
-            </div>
-            <div class="card-footer">
-              <button type="button" class="btn btn-success">Done</button>
-              <button type="button" class="btn btn-danger">Delete</button>
-            </div>
-          </div>
-        </div>
-      </div>
+    </div>
+
+    <div class="container-fluid tasks-list">
     </div>
 
     <script src="app.js"></script>
