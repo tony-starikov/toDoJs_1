@@ -37,16 +37,29 @@ const tasks = [
     return accumulator;
   }, {});
 
+  const themes = {
+    light: {
+      "--bg-color": "#ffc107",
+    },
+    dark: {
+      "--bg-color": "#6c757d",
+    },
+  };
+
   // Elements UI
   const tasksContainer = document.querySelector(".tasks-list");
   const form = document.forms["addNewTask"];
   const inputTitle = form.elements["title"];
   const inputBody = form.elements["body"];
+  const themeCheckbox = document.querySelector("#theme");
+  themeCheckbox.checked = false;
 
   // Events
+  setTheme("light");
   renderOfTasks(objectOfTasks);
   form.addEventListener("submit", onFormSubmitHandler);
   tasksContainer.addEventListener("click", onDeleteHandler);
+  themeCheckbox.addEventListener("change", onChangeThemeCheckbox);
 
   function renderOfTasks(tasksList) {
     if (!tasksList) {
@@ -181,5 +194,26 @@ const tasks = [
 
   function deleteTaskFromDom(element) {
     element.remove();
+  }
+
+  function onChangeThemeCheckbox(e) {
+    let selectedTheme = "light";
+    console.log(e.target.checked);
+    if (this.checked) {
+      selectedTheme = "dark";
+      console.log("Checkbox is checked..");
+    } else {
+      selectedTheme = "light";
+      console.log("Checkbox is not checked..");
+    }
+
+    setTheme(selectedTheme);
+  }
+
+  function setTheme(name) {
+    const selectedThemeObject = themes[name];
+    Object.entries(selectedThemeObject).forEach(([key, value]) => {
+      document.documentElement.style.setProperty(key, value);
+    });
   }
 })(tasks);
