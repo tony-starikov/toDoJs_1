@@ -52,10 +52,10 @@ const tasks = [
   const inputTitle = form.elements["title"];
   const inputBody = form.elements["body"];
   const themeCheckbox = document.querySelector("#theme");
-  themeCheckbox.checked = false;
+  let lastSelectedTheme = localStorage.getItem("app_theme") || "light";
 
   // Events
-  setTheme("light");
+  setTheme(lastSelectedTheme);
   renderOfTasks(objectOfTasks);
   form.addEventListener("submit", onFormSubmitHandler);
   tasksContainer.addEventListener("click", onDeleteHandler);
@@ -197,21 +197,26 @@ const tasks = [
   }
 
   function onChangeThemeCheckbox(e) {
-    let selectedTheme = "light";
-    console.log(e.target.checked);
-    if (this.checked) {
+    let selectedTheme;
+    if (e.target.checked) {
       selectedTheme = "dark";
-      console.log("Checkbox is checked..");
     } else {
       selectedTheme = "light";
-      console.log("Checkbox is not checked..");
     }
 
     setTheme(selectedTheme);
+    localStorage.setItem("app_theme", selectedTheme);
   }
 
   function setTheme(name) {
     const selectedThemeObject = themes[name];
+
+    if (name == "dark") {
+      themeCheckbox.checked = true;
+    } else {
+      themeCheckbox.checked = false;
+    }
+
     Object.entries(selectedThemeObject).forEach(([key, value]) => {
       document.documentElement.style.setProperty(key, value);
     });
