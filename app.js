@@ -59,6 +59,7 @@ const tasks = [
   renderOfTasks(objectOfTasks);
   form.addEventListener("submit", onFormSubmitHandler);
   tasksContainer.addEventListener("click", onDeleteHandler);
+  tasksContainer.addEventListener("click", onDoneHandler);
   themeCheckbox.addEventListener("change", onChangeThemeCheckbox);
 
   function renderOfTasks(tasksList) {
@@ -220,5 +221,28 @@ const tasks = [
     Object.entries(selectedThemeObject).forEach(([key, value]) => {
       document.documentElement.style.setProperty(key, value);
     });
+  }
+
+  function onDoneHandler(e) {
+    if (e.target.classList.contains("btn-success")) {
+      const parent = e.target.closest("[data-task-id]");
+      const id = parent.dataset.taskId;
+      const taskText = parent.querySelector("p");
+      lineThroughDoneTask(taskText);
+      taskDone(id);
+    }
+  }
+
+  function lineThroughDoneTask(element) {
+    element.classList.toggle("text-decoration-line-through");
+  }
+
+  function taskDone(id) {
+    const task = objectOfTasks[id];
+    if (task.completed) {
+      task.completed = false;
+    } else {
+      task.completed = true;
+    }
   }
 })(tasks);
